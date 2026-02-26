@@ -273,6 +273,25 @@ body {
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
+/* Disabled file input styles */
+.form-file:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #e2e8f0;
+}
+
+.form-file:disabled::-webkit-file-upload-button {
+    background: #cbd5e0;
+    color: #718096;
+    cursor: not-allowed;
+}
+
+.form-file:disabled::-webkit-file-upload-button:hover {
+    background: #cbd5e0;
+    transform: none;
+    box-shadow: none;
+}
+
 /* Navigation Buttons */
 .navigation-container {
     display: flex;

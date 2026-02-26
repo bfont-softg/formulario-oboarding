@@ -57,11 +57,12 @@ function setupEventListeners() {
         { id: 'educationalMaterial', driveId: 'educationalMaterialDrive', sourceName: 'educationalMaterialSource' }
     ];
     
-    fileInputs.forEach(input => {
+     fileInputs.forEach(input => {
         const fileInput = document.getElementById(input.id);
         const driveInput = document.getElementById(input.driveId);
         const sourceRadios = document.querySelectorAll(`[name="${input.sourceName}"]`);
         const filesContainer = document.getElementById(`${input.id}Files`);
+        let storedFiles = []; // Store selected files temporarily
         
         // File selection handler
         fileInput.addEventListener('change', function(e) {
@@ -76,6 +77,7 @@ function setupEventListeners() {
                 Array.from(e.target.files).forEach(file => {
                     if (!existingFiles.includes(file.name)) {
                         addFileItem(filesContainer, file, input.id);
+                        storedFiles.push(file); // Store file object
                     }
                 });
             }
@@ -87,11 +89,14 @@ function setupEventListeners() {
             radio.addEventListener('change', function() {
                 if (this.value === 'drive') {
                     fileInput.disabled = true;
+                    fileInput.classList.add('hidden');
+                    filesContainer.classList.add('hidden');
                     driveInput.classList.remove('hidden');
                     driveInput.classList.add('active');
-                    filesContainer.innerHTML = '';
                 } else {
                     fileInput.disabled = false;
+                    fileInput.classList.remove('hidden');
+                    filesContainer.classList.remove('hidden');
                     driveInput.classList.add('hidden');
                     driveInput.classList.remove('active');
                     driveInput.value = '';

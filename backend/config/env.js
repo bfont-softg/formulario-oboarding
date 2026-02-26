@@ -18,9 +18,9 @@ const config = {
   
    // Google Drive configuration
   GOOGLE_DRIVE: {
-    CLIENT_ID: process.env.GOOGLE_DRIVE_CLIENT_ID,
-    CLIENT_SECRET: process.env.GOOGLE_DRIVE_CLIENT_SECRET,
-    REFRESH_TOKEN: process.env.GOOGLE_DRIVE_REFRESH_TOKEN,
+    CLIENT_ID: (process.env.GOOGLE_DRIVE_CLIENT_ID || '').trim(),
+    CLIENT_SECRET: (process.env.GOOGLE_DRIVE_CLIENT_SECRET || '').trim(),
+    REFRESH_TOKEN: (process.env.GOOGLE_DRIVE_REFRESH_TOKEN || '').trim(),
     FOLDER_ID: (() => {
       const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
       if (!folderId) return null;

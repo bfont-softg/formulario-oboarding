@@ -1,4 +1,5 @@
-const { google } = require('@googleapis/drive');
+const { drive: googleDrive } = require('@googleapis/drive');
+const { OAuth2Client } = require('google-auth-library');
 const config = require('./env');
 
 class GoogleDriveService {
@@ -11,7 +12,7 @@ class GoogleDriveService {
   async initialize() {
     try {
       // Create OAuth2 client
-      this.auth = new google.auth.OAuth2(
+      this.auth = new OAuth2Client(
         config.GOOGLE_DRIVE.CLIENT_ID,
         config.GOOGLE_DRIVE.CLIENT_SECRET
       );
@@ -22,14 +23,14 @@ class GoogleDriveService {
       });
 
       // Initialize drive API
-      this.drive = google.drive({
+      this.drive = googleDrive({
         version: 'v3',
         auth: this.auth
       });
 
       console.log('✅ Google Drive API initialized successfully');
     } catch (error) {
-      console.error('❌ Error initializing Google Drive API:', error.message);
+      console.error('❌ Error initializing Google Drive API:', error);
       if (config.NODE_ENV === 'development') {
         console.warn('⚠️ Google Drive configuration not complete - some features may be disabled');
       }
